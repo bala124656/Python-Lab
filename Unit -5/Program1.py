@@ -1,26 +1,27 @@
-import json
+class BankAccount:
+    def __init__(self, name, balance):
+        self.name = name
+        self.balance = balance
 
-logs = [
-    {"event": "Login", "status": "Success"},
-    {"event": "Payment", "status": "Failed"},
-    {"event": "Logout", "status": "Success"}
-]
+    def deposit(self, amount):
+        self.balance += amount
+        print("Amount Deposited:", amount)
 
-with open("logs.json", "w") as file:
-    json.dump(logs, file, indent=4)
+    def withdraw(self, amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            print("Amount Withdrawn:", amount)
+        else:
+            print("Insufficient Balance")
 
-with open("logs.json", "r") as file:
-    data = json.load(file)
+    def display(self):
+        print("Account Holder:", self.name)
+        print("Balance:", self.balance)
 
-success = 0
-failed = 0
 
-for log in data:
-    if log["status"] == "Success":
-        success += 1
-    else:
-        failed += 1
+account = BankAccount("Bala B", 5000)
 
-print("Total Logs:", len(data))
-print("Successful Events:", success)
-print("Failed Events:", failed)
+account.deposit(2000)
+account.withdraw(1000)
+account.display()
+
